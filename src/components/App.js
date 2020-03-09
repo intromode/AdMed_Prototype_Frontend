@@ -3,28 +3,27 @@ import {Container, Row, Form, Col, Button} from 'react-bootstrap';
 import fetchBotsReply from '../actions/BotsReplyAction';
 
 function App() {
-  //bot reply component here
-  //probably dont need a fn here just the jsax
     
   const [conversation, setConversation] = useState([]);
 
   const chatBot = async data => {
 
-    var result = await fetchBotsReply({userMsg: "Hello"});
+    var result = await fetchBotsReply({userMsg: "what are the adverse effects of chatex"}); //shouldnt data just be 'data' here
     console.log(result)
-    setConversation(conversation => [...conversation, result]);
+    setConversation(conversation => [...conversation, result]);//where is conversation being originally set, how can it be passed if not exist
 
   }
 
+  //when component mounts/updates, call the chatbot with Hello. Should just be for initial load?
   useEffect(() => {
-    chatBot("Hello")
+    chatBot("Hello") 
   }, [])
 
   return (
     <main>
       <Container>
           <Form.Group >
-            {conversation ? console.log(conversation): ''}
+            {conversation ? console.log("conversation", conversation): ''}
             {Object.keys(conversation).map((item, i) => (
               <Row key={i}>
                 {console.log(item)}

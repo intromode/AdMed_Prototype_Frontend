@@ -1,12 +1,12 @@
-export const request = () => {
-    return fetch(`http://localhost:5000/adMed/botConvo/botReply`)
-    .then(res => ([res.ok, res.json()]))
-    .then(([ok, json]) => {
-      if(!ok) throw 'Unable to fetch the bots reply';
+// export const request = () => {
+//     return fetch(`http://localhost:5000/adMed/botConvo/botReply`)
+//     .then(res => ([res.ok, res.json()]))
+//     .then(([ok, json]) => {
+//       if(!ok) throw 'Unable to fetch the bots reply';
       
-      return json;
-    })
-  }
+//       return json;
+//     })
+//   }
 
 
 

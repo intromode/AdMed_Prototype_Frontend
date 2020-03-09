@@ -1,9 +1,9 @@
 // import React, { useState, useEffect } from 'react';
 // import propTypes from 'prop-types';
 
-export default async params => {
+export default async (params) => {
 
-    const data = {userMessage: 'what are the side effects of lipitor'};
+    const data = {userMessage: params.userMsg};
 
     const result = await fetch('http://localhost:5000/adMed/botConvo/botReply',
       {
@@ -28,14 +28,3 @@ export default async params => {
       return result;
 };
 
-// export function PostBotsReply(botsReply) {
-//   return (
-//     <>
-//     <p>{botReply}</p>
-//     </>
-//   )
-// }
-
-// PostBotsReply.propTypes = {
-//   botsReply: propTypes.string.isRequired
-// }
