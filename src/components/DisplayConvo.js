@@ -1,14 +1,13 @@
 import React, {useEffect, useState, PureComponent, Component} from 'react';
 import {Container, Row, Form, Col, Button} from 'react-bootstrap';
 import fetchBotsReply from '../actions/BotsReplyAction';
-import './DisplayConvo.css';
-
-
+import './displayConvo.scss';
 
 class DisplayConvo extends PureComponent {  
     state = {
     userMsg: '',
     botReply: '',
+    isLoaded: false,
     convo: []
   }
 
@@ -17,12 +16,14 @@ class DisplayConvo extends PureComponent {
   }
 
   chatBot = async data => {
+
     var result = await fetchBotsReply({userMsg: data});
     console.log("result", result)
     this.setState({
       botReply: result,
       convo: [...this.state.convo, result]
     })
+    
     console.log("convo", this.state)
     }
 
@@ -34,23 +35,32 @@ class DisplayConvo extends PureComponent {
 
   render() {
     return (
-      <main>
+    <main >
+      <div className="chat_window">
         <Container>
           <Form.Group>
             {this.state.convo.map((reply, i) => (
               <Row key={i}>
+              {console.log("HERE", reply.text.split(".").join(""))}
                 <Form.Label column md={2} >Watson Assistant:</Form.Label>
-                <Form.Label column md={10}>{reply.text}</Form.Label>
+                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.split(".").join("\n\n")}</Form.Label>
               </Row>
-            ))
-            }
+            ))}
           </Form.Group>
       </Container>
-          <form onSubmit={this.onSubmit}>
-          <input type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
-          <button>Send</button>
-          </form>
-      </main>
+      <Container className="bottom_wrapper clearfix">
+        <form >
+          <div className="message_input_wrapper">
+            <input className="message_input" placeholder="Type your message here..." type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
+          </div>
+          <Form.Group className="send_message">
+            <div className="icon"></div>
+            <div onClick={this.onSubmit} className="text" >Send</div>
+		      </Form.Group>
+        </form>
+      </Container>
+      </div>
+    </main>
     );
   }
 }

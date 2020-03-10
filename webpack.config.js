@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -29,33 +29,8 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: { sourceMap: true }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: true,
-              importLoaders: 1
-            }
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              plugins: [
-                require('postcss-import')(),
-                require('autoprefixer')(),
-                require('postcss-nested')(),
-                require('postcss-simple-vars')()
-              ]
-            }
-          }
-        ]
+        test:/\.scss$/,
+        use: ['style-loader','css-loader', 'sass-loader']
       },
       {
         test: /\.(jpeg|jpg|png|svg)$/,
