@@ -20,11 +20,9 @@ export default async (params) => {
           console.log(res.statusText);
         }
       }).then((json) => {
-        console.log(json)
+        // console.log(json)
         return json;
-        // setConversation(conversation => [...conversation, json]);
       });
-  //eventually we will dispatch the results into the redux store to save with return function(dispatch) and wrap the code within that 
       return result;
 };
 

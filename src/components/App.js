@@ -1,7 +1,11 @@
-import displayConvo from './displayConvo';
+import React from 'react';
+import DisplayConvo from './DisplayConvo';
+import GetUserInput from './GetUserInput';
 
 function App() {
-  return displayConvo()
+  return (
+    <DisplayConvo />
+  )
 }
 
 export default App;
