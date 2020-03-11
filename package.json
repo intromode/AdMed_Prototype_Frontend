@@ -1,5 +1,6 @@
 {
-  "name": "note-fullstack",
+  "homepage": "http://intromode.github.io/AdMed_Prototype_Frontend",
+  "name": "AdMed_Prototype_Frontend",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
