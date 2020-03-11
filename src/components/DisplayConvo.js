@@ -41,9 +41,9 @@ class DisplayConvo extends PureComponent {
           <Form.Group>
             {this.state.convo.map((reply, i) => (
               <Row key={i}>
-              {console.log("HERE", reply.text.split(".").join(""))}
+                {console.log("HERE", reply.text.split(".").join(""))}
                 <Form.Label column md={2} >Watson Assistant:</Form.Label>
-                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.split(".").join("\n\n")}</Form.Label>
+                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.replace(/\[(.*?)\]/i, '').split(".").join("\n\n")}</Form.Label>
               </Row>
             ))}
           </Form.Group>
