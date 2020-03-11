@@ -5,7 +5,7 @@ export default async (params) => {
 
     const data = {userMessage: params.userMsg};
 
-    const result = await fetch('http://localhost:5000/adMed/botConvo/botReply',
+    const result = await fetch('https://thawing-garden-62813.herokuapp.com/adMed/botConvo/botReply',
       {
         headers: {
           'Accept': 'application/json',
