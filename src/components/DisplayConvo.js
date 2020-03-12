@@ -1,6 +1,8 @@
 import React, {useEffect, useState, PureComponent, Component} from 'react';
 import {Container, Row, Form, Col, Button} from 'react-bootstrap';
 import fetchBotsReply from '../actions/BotsReplyAction';
+import { Scrollbars } from 'react-custom-scrollbars';
+
 import './displayConvo.scss';
 
 class DisplayConvo extends PureComponent {  
@@ -36,30 +38,32 @@ class DisplayConvo extends PureComponent {
   render() {
     return (
     <main >
-      <div className="chat_window">
-        <Container>
-          <Form.Group>
-            {this.state.convo.map((reply, i) => (
-              <Row key={i}>
-              {console.log("HERE", reply.text.split(".").join(""))}
-                <Form.Label column md={2} >Watson Assistant:</Form.Label>
-                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.split(".").join("\n\n")}</Form.Label>
-              </Row>
-            ))}
-          </Form.Group>
-      </Container>
-      <Container className="bottom_wrapper clearfix">
-        <form >
-          <div className="message_input_wrapper">
-            <input className="message_input" placeholder="Type your message here..." type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
-          </div>
-          <Form.Group className="send_message">
-            <div className="icon"></div>
-            <div onClick={this.onSubmit} className="text" >Send</div>
-		      </Form.Group>
-        </form>
-      </Container>
-      </div>
+        <div className="chat_window">
+          <div>
+            <Form.Group className={"messages"}>
+              {this.state.convo.map((reply, i) => (
+                <Row key={i}>
+                {console.log("HERE", reply.text.split(".").join(""))}
+                    <Form.Label column md={2}>Watson Assistant:</Form.Label>
+                    <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.split(".").join("\n\n")}</Form.Label>
+                </Row>
+              ))}
+            </Form.Group>
+        </div>
+        <div>
+        <Container className="bottom_wrapper clearfix">
+          <form >
+            <div className="message_input_wrapper">
+              <input className="message_input" placeholder="Type your message here..." type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
+            </div>
+            <Form.Group className="send_message">
+              <div className="icon"></div>
+              <div onClick={this.onSubmit} className="text" >Send</div>
+            </Form.Group>
+          </form>
+        </Container>
+        </div>
+        </div>
     </main>
     );
   }
