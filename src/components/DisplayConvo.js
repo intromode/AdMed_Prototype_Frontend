@@ -24,17 +24,18 @@ class DisplayConvo extends PureComponent {
     this.setState({
       botReply: result,
       isLoading: false,
-      convo: [...this.state.convo, result]
+      convo: [...this.state.convo, result.text.replace(/\[(.*?)\]/i, '').split(".").join("\n\n")]
     })
     
-    console.log("convo", this.state)
+    console.log("state", this.state)
     }
 
 
   onSubmit = event => {
     event.preventDefault();
     this.setState({
-      isLoading: true
+      isLoading: true,
+      convo: [...this.state.convo, this.state.userMsg]
     })
     this.chatBot(this.state.userMsg)
   }
@@ -48,10 +49,12 @@ class DisplayConvo extends PureComponent {
         ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         : <Form.Group className={"messages"}>
             {this.state.convo.map((reply, i) => (
-            <Row key={i}>
-              <Form.Label column md={2} >Watson Assistant:</Form.Label>
-              <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.replace(/\[(.*?)\]/i, '').split(".").join("\n\n")}</Form.Label>
-            </Row>
+              <Row key={i}>
+                {i%2 === 0 
+                ? <Form.Label column md={2} >User:</Form.Label>
+                : <Form.Label column md={2} >Watson Assistant:</Form.Label>}
+                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply}</Form.Label>
+              </Row>
         ))}
           </Form.Group> }
       </Container>
