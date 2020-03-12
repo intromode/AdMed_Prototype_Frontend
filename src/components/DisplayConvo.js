@@ -1,7 +1,7 @@
-import React, {useEffect, useState, PureComponent, Component} from 'react';
+import React, {useEffect, useRef, useState, PureComponent} from 'react';
 import {Container, Row, Form, Col, Button} from 'react-bootstrap';
 import fetchBotsReply from '../actions/BotsReplyAction';
-import { Scrollbars } from 'react-custom-scrollbars';
+
 
 import './displayConvo.scss';
 
@@ -9,7 +9,7 @@ class DisplayConvo extends PureComponent {
     state = {
     userMsg: '',
     botReply: '',
-    isLoaded: false,
+    isLoading: false,
     convo: []
   }
 
@@ -23,6 +23,7 @@ class DisplayConvo extends PureComponent {
     console.log("result", result)
     this.setState({
       botReply: result,
+      isLoading: false,
       convo: [...this.state.convo, result]
     })
     
@@ -32,6 +33,9 @@ class DisplayConvo extends PureComponent {
 
   onSubmit = event => {
     event.preventDefault();
+    this.setState({
+      isLoading: true
+    })
     this.chatBot(this.state.userMsg)
   }
 
@@ -40,15 +44,16 @@ class DisplayConvo extends PureComponent {
     <main >
       <div className="chat_window">
         <Container>
-          <Form.Group className={"messages"}>
+        {this.state.isLoading
+        ? <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        : <Form.Group className={"messages"}>
             {this.state.convo.map((reply, i) => (
-              <Row key={i}>
-                {console.log("HERE", reply.text.split(".").join(""))}
-                <Form.Label column md={2} >Watson Assistant:</Form.Label>
-                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.replace(/\[(.*?)\]/i, '').split(".").join("\n\n")}</Form.Label>
-              </Row>
-            ))}
-          </Form.Group>
+            <Row key={i}>
+              <Form.Label column md={2} >Watson Assistant:</Form.Label>
+              <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply.text.replace(/\[(.*?)\]/i, '').split(".").join("\n\n")}</Form.Label>
+            </Row>
+        ))}
+          </Form.Group> }
       </Container>
       <Container className="bottom_wrapper clearfix">
         <form method="post" onSubmit={this.onSubmit}>
@@ -67,16 +72,3 @@ class DisplayConvo extends PureComponent {
   }
 }
 export default DisplayConvo;
-
-
-
-{/* <div>
-<ul>
-  {this.state.convo.map((eachBotReply, i) => (
-    <li key={i}>
-      <h3>Watson Assistant:</h3>
-      <p>{eachBotReply.text}</p>
-    </li>
-  ))}
-</ul>
-</div> */}
