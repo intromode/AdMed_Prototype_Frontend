@@ -51,9 +51,15 @@ class DisplayConvo extends PureComponent {
             {this.state.convo.map((reply, i) => (
               <Row key={i}>
                 {i%2 === 0 
-                ? <Form.Label column md={2} >User:</Form.Label>
-                : <Form.Label column md={2} >Watson Assistant:</Form.Label>}
-                <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply}</Form.Label>
+                ? [
+                    <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply}</Form.Label>,
+                    <Form.Label column md={2} >User:</Form.Label>]
+                : [
+                    <Form.Label column md={2} >Watson Assistant:</Form.Label>,
+                    <Form.Label column md={10} style={{whiteSpace: "pre-line"}}>{reply}</Form.Label>
+                  ]
+                }
+                
               </Row>
         ))}
           </Form.Group> }
@@ -63,9 +69,9 @@ class DisplayConvo extends PureComponent {
           <div className="message_input_wrapper">
             <input className="message_input" placeholder="Type your message here..." type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
           </div>
-          <Form.Group className="send_message">
+          <Form.Group onClick={this.onSubmit} className="send_message">
             <div className="icon"></div>
-            <div onClick={this.onSubmit} className="text" >Send</div>
+            <div className="text" >Send</div>
 		      </Form.Group>
         </form>
       </Container>
