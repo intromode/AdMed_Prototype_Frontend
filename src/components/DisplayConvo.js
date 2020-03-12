@@ -51,7 +51,7 @@ class DisplayConvo extends PureComponent {
           </Form.Group>
       </Container>
       <Container className="bottom_wrapper clearfix">
-        <form >
+        <form method="post" onSubmit={this.onSubmit}>
           <div className="message_input_wrapper">
             <input className="message_input" placeholder="Type your message here..." type="text" name="userMsg" value={this.state.userMsg }onChange={this.onChange}></input>
           </div>
